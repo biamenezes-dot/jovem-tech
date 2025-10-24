@@ -1,20 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Navbar from "./componentes/navbar"; 
 import Home from "./pasta/home";
-import Contato from "./pasta/contato";
 import Servico from "./pasta/servico";
+import FormularioContato from "./componentes/FormularioContato";
 
 function App() {
-  return (
+  return  ( 
     <Router>
       <div className="App">
-        <Navbar />  
+        <Navbar /> 
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/servico" element={<Servico />} />
-          <Route path="/contato" element={<Contato />} />
+          <Route path="./componentes/FormularioContato" element={<FormularioContato />} />        
         </Routes>
       </div>
+       <FormularioContato />
     </Router>
   );
 }
