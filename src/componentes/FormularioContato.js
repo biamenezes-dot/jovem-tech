@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import Swal from "sweetalert2";
 
 function FormularioContato() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [mensagem, setMensagem] = useState("");
-  const [captchaValue, setCaptchaValue] = useState(null);
+  const [captchaValue, setCaptchaValue] = useState(null); // Guarda o valor do reCAPTCHA (token de verificação)
 
   const handleCaptchaChange = (value) => {
     console.log("Token do reCAPTCHA:", value);
@@ -15,12 +16,30 @@ function FormularioContato() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Verifica se o usuário confirmou o reCAPTCHA
     if (!captchaValue) {
-      alert("Por favor, confirme que você não é um robô.");
+      Swal.fire({
+        title: 'Atenção!',
+        text: 'Por favor, confirme que você não é um robô.',
+        icon: 'warning',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#3085d6',
+        background: '#f5f5f5',
+      });
       return;
     }
 
-    alert("Mensagem enviada com sucesso!");
+    // Se passou pelo reCAPTCHA, exibe uma mensagem de sucesso
+    Swal.fire({
+      title: 'Enviado!',
+      text: 'Seu formulário foi enviado com sucesso.',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: '#3085d6',
+      background: '#f5f5f5',
+    });
+
+    // Limpa os campos
     setNome("");
     setEmail("");
     setMensagem("");
@@ -29,7 +48,6 @@ function FormularioContato() {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.titulo}>Entre em Contato</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="text"
@@ -69,8 +87,6 @@ function FormularioContato() {
         </button>
       </form>
     </div>
-    
-    
   );
 }
 
