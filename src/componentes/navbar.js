@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); 
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const styles = {
     nav: {
@@ -43,16 +51,16 @@ function Navbar() {
       color: "#f5b301",
     },
 
+    // botão visível no mobile
     menuButton: {
-      display: "none",
-      fontSize: "26px",
+      display: isMobile ? "block" : "none",
+      fontSize: "28px",
       background: "none",
       border: "none",
       color: "#fff",
       cursor: "pointer",
     },
 
-    // Estilos que serão aplicados em telas pequenas
     mobileLinks: {
       display: menuOpen ? "flex" : "none",
       flexDirection: "column",
@@ -65,26 +73,19 @@ function Navbar() {
       padding: "20px 0",
       gap: "20px",
       boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+      zIndex: 2000,
     },
-
-    "@media (max-width: 768px)": {},
   };
-
-  // Detecta se a tela é pequena
-  const isMobile = window.innerWidth <= 768;
 
   return (
     <nav style={styles.nav}>
-
       <div style={styles.logo}>
         ⚖️ <span style={{ marginLeft: "8px" }}>Thamires Advogada</span>
       </div>
 
-      {isMobile && (
-        <button onClick={toggleMenu} style={styles.menuButton}>
-          ☰
-        </button>
-      )}
+      <button onClick={toggleMenu} style={styles.menuButton}>
+        ☰
+      </button>
 
       <div style={isMobile ? styles.mobileLinks : styles.links}>
         <Link to="/home" style={styles.link}>

@@ -77,7 +77,7 @@ function FormularioContato() {
 
         <div style={styles.captcha}>
           <ReCAPTCHA
-            sitekey="6LfhA_YrAAAAAKUlb4nXnn8mCfo_aEsMJ5ed6CWi"
+            sitekey="6LeDPvorAAAAAJDpHvUa4GL0bOuLjZMbOG2OnPZy"
             onChange={handleCaptchaChange}
           />
         </div>
